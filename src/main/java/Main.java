@@ -6,7 +6,6 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +21,7 @@ public class Main {
 //        Course astronomy = entityManager.find(Course.class, 6);
         Query queryCourse = entityManager.createQuery("SELECT c FROM Course as c WHERE c.name = 'Astronomy'");
         Course astronomy = (Course) queryCourse.getSingleResult();
-        Set<Course> courses = new HashSet<Course>();
+        Set<Course> courses = new HashSet<>();
         courses.add(astronomy);
 
         if (entityManager.find(Person.class, 109) == null) {
