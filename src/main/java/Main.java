@@ -4,6 +4,7 @@ import entity.Person;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -14,8 +15,13 @@ public class Main {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        House slytherin = entityManager.find(House.class, 4);
-        Course astronomy = entityManager.find(Course.class, 6);
+//        House slytherin = entityManager.find(House.class, 4);
+        Query queryHouse = entityManager.createQuery("SELECT h FROM House h Where h.name = 'Slytherin'");
+        House slytherin = (House) queryHouse.getSingleResult();
+
+//        Course astronomy = entityManager.find(Course.class, 6);
+        Query queryCourse = entityManager.createQuery("SELECT c FROM Course as c WHERE c.name = 'Astronomy'");
+        Course astronomy = (Course) queryCourse.getSingleResult();
         Set<Course> courses = new HashSet<Course>();
         courses.add(astronomy);
 
